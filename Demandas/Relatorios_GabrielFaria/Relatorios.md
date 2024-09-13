@@ -57,3 +57,6 @@ Na tela de edição basta desmarcar a opção **Unlimited** caso esteja marcada 
 Caso o limite seja excedido, a seguinte mensagem aparecerá e o usuário deverá esperar até o próximo dia, quando o limite resetar.
 
 ![Cotas4](./img/Cotas4.png)
+
+# Dúvidas
+Como acontece a cobrança do modelo sob capacidade computacional (comprando reserva de slots) ficou um pouco abstrato para mim. Não consegui ter certeza se o valor dos slots são cobrados continuamente ou só enquanto estão sendo usados para processar alguma query.
