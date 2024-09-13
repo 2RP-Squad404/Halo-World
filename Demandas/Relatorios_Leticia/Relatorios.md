@@ -38,3 +38,10 @@ Com esses passos acima, assim que algum usuário executar uma consulta acima do 
 
 - [Restringir o número de Bytes](https://cloud.google.com/bigquery/docs/best-practices-costs?hl=pt-br#restrict-bytes-billed)
 
+### Dúvidas
+
+- Saber se essa forma é a correta para seguir ou se tem uma maneira melhor
+
+- Na parte de IAM tem uma parte das cotas que aparece várias regiões, teria alguma maneira de deixar um projeto em apenas uma região específica para aplicas as cotas?
+
+- Dificuldade de achar documentação e vídeos para o assunto específico
