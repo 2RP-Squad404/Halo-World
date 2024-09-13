@@ -1,3 +1,5 @@
+*** Labels e Tagueamento de Jobs e Queries ***
+
 *** Queries e Jobs ***
 
 Queries e jobs são termos comumente utilizados em diversos contextos, mas que possuem significados específicos dependendo do campo de aplicação. Em geral, ambos envolvem a solicitação de informações ou a execução de tarefas, mas com nuances distintas.
@@ -122,3 +124,7 @@ Melhorar a organização: Facilitar a localização e o gerenciamento de recurso
 Otimizar custos: Identificar e otimizar o uso de recursos.
 Garantir a conformidade: Cumprir com políticas de segurança e regulamentações.
 Automatizar tarefas: Simplificar a gestão de recursos.
+
+
+*** Dúvida ***
+Mesmo pesquisando bastante em documentação, vídeos e etc. Não consegui encontrar uma maneira de atribuir um label a uma query ou job pelo console, consegui apenas pelo CLI, teria alguma maneira?
