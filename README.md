@@ -7,7 +7,7 @@
 
 [Relatório Valentina](./Demandas/Relatorios_Valentina/Relatorios.md)
 
-[Relatório Rafael](./Demandas/Relatorios_RafaelRodrigues/Relatorios.md/Relatorios.md)
+[Relatório Rafael](./Demandas/Relatorios_RafaelRodrigues/Relatorios.md)
 
 [Relatório Daniel](./Demandas/Relatorios_Daniel/Relatorios.md)
 
