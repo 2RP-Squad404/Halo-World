@@ -86,4 +86,4 @@ Resultado
 
 ## Dúvida
 
-Como poderia fazer alguma consulta que realmente ajude e como poderia usar o cluster. 
+Como poderia fazer alguma consulta que realmente ajude e como poderia usar o cluster.
