@@ -22,6 +22,45 @@ schema = [
     bigquery.SchemaField("cpf", "STRING", mode="REQUIRED"),
 ]
 
+"""
+[{
+  "id_cartao": "45595555",
+  "id_produto_cartao": null,
+  "num_cartao": "6505XXXXXXXX9955",
+  "num_seq_via_cartao": "1",
+  "id_conta": "26511437",
+  "num_cpf_cliente": "45678912345",
+  "cod_tip_portador": "1",
+  "num_bin": "650567",
+  "cod_loja_emis_cartao": null,
+  "id_cliente_so": "12349531",
+  "dth_emis_cartao": "2024-08-11 07:36:38.000000 UTC",
+  "dth_embs_cartao": "2024-08-12 05:00:00.000000 UTC",
+  "dth_valid_cartao": "2032-08-31 00:00:00.000000 UTC",
+  "dth_desbloqueio": null,
+  "cod_sit_cartao": "2",
+  "des_sit_cartao": "BLOQUEADO",
+  "dth_sit_cartao": "2024-08-11 07:37:00.000000 UTC",
+  "cod_estagio_cartao": "4",
+  "des_estagio_cartao": "ENCAMINHADO",
+  "dth_estagio_cartao": "2024-08-12 05:00:00.000000 UTC",
+  "flg_embs_loja": "N",
+  "flg_cartao_cancelado": "N",
+  "flg_cartao_provisorio": "N",
+  "flg_conta_cancelada": null,
+  "dth_ult_atu_so": "2024-08-12 05:00:20.000000 UTC",
+  "num_seq_ult_alteracao": "62",
+  "dth_inclusao_reg": "2024-08-15 04:18:47.000000 UTC",
+  "pt_nomeplastico": "SAMUEL NUNES",
+  "ca_arquivolote": "CPEM120824",
+  "ca_id_imagem": null,
+  "bc_responsavel": "[IRIS]_1056",
+  "ca_codigocancelamento": null,
+  "ca_flaggeracartasenha": "0",
+  "pt_id_imagem": null
+}]
+"""
+
 # Cria a tabela com o esquema definido
 table = bigquery.Table(table_id, schema=schema)
 
