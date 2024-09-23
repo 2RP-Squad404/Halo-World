@@ -77,6 +77,27 @@ sudo snap install google-cloud-cli --classic
 No Windows:
 Baixe e instale a Google Cloud CLI [aqui](https://cloud.google.com/sdk/docs/install?hl=pt_br&_gl=1*hqmbvj*_up*MQ..&gclid=Cj0KCQjwo8S3BhDeARIsAFRmkOOgrCgnl9O-8Xvb8r41OvcYyrZeWzpr-tLnO8mhQMm0cx8lWGYHrwkaAhmnEALw_wcB&gclsrc=aw.ds).
 
+1. abrir o terminal do google cloud sdk
+
+2. Navegar até a pasta onde você clonou o projeto 
+- exemplo: cd /home/seu-usuário/Halo-World/Sprints/Sprint_01/data_generator.py 
+
+3. abrir em um editor de código 
+
+4. criar ambiente virtual com o comando:
+```
+python -m venv .venv
+```
+5. Ativar o ambiente virtual com o comando:
+```
+.venv/Scripts/activate
+```
+
+6. Dentro do ambiente virtual instalar as dependências do projeto:
+```
+python install -r requirements.txt
+```
+
 ## 4. Autenticar no Google Cloud
 Após instalar a Google Cloud CLI, você precisa fazer login na sua conta Google:
 
