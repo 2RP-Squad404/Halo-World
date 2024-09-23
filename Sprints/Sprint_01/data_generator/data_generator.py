@@ -3,13 +3,13 @@ from faker import Faker
 from models import FictionalPerson, FictionalCard, FictionalAccount
 import random
 from google.cloud import bigquery
-
-client = bigquery.Client()
+from google.api_core.exceptions import NotFound
 
 project_id = 'sapient-cycling-434419-u0'
 dataset_name = 'data_mock'
-
 table_id = f"{project_id}.{dataset_name}.persons"
+
+client = bigquery.Client(project=project_id)
 
 schema = [
     bigquery.SchemaField("person_id", "INTEGER", mode="REQUIRED"),
@@ -21,6 +21,17 @@ schema = [
     bigquery.SchemaField("salary", "INTEGER", mode="NULLABLE"),
     bigquery.SchemaField("cpf", "STRING", mode="REQUIRED"),
 ]
+
+try:
+    # Verifica se a tabela já existe
+    client.get_table(table_id)
+    print(f"Tabela {table_id} já existe.")
+    exit()
+except NotFound:
+    # Cria a tabela se ela não existir
+    table = bigquery.Table(table_id, schema=schema)
+    table = client.create_table(table)
+    print(f"Tabela {table_id} criada com sucesso.")
 
 """
 [{
