@@ -44,28 +44,6 @@ Caso o projeto tenha um arquivo requirements.txt, instale as dependências com:
 pip install -r requirements.txt
 ```
 
-No Windows:
-1. Criar e ativar o ambiente virtual:
-
-No terminal, execute o seguinte comando para criar o ambiente virtual:
-
-```
-python -m venv .venv
-```
-
-Ative o ambiente virtual com:
-
-```
-.venv\Scripts\activate
-```
-2. Instalar dependências:
-
-Caso o projeto tenha um arquivo requirements.txt, instale as dependências com:
-
-```
-pip install -r requirements.txt
-```
-
 ## 3. Instalar a CLI do Google Cloud
 No Ubuntu:
 Instale a CLI do Google Cloud com o seguinte comando:
