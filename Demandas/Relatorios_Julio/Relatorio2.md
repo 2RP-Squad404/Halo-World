@@ -79,6 +79,9 @@ GROUP BY
 Conforme o exemplo, você define a tag na parte config do seu arquivo sqlx
 
 
+**Tutoriais**
+
+
 *Como atribuir uma tag e rodar uma execeução de um arquivo sqlx através da tag*
 
 Entrar no arquivo sqlx, e no cabeçalho na parte "configs" atribuir uma tag
@@ -94,3 +97,48 @@ Clicar em "Selection of Tags", Selecionar as tags que deseja executar, clicar em
 Para conferir se executou corretamente, ir na aba "Executions", ao lado de "Iniciar Execução"
 
 ![alt text](/Demandas/Relatorios_Julio/Img/image-2.png)
+
+<br>
+<br>
+
+*Como rodar Fluxos de trabalho através das Tags*
+
+Abrir Dataform e clicar no repositório existente
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-3.png)
+
+Clicar em "Versões e Programação"
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-4.png)
+
+Clicar em "Criar" para criar uma configuração de versão
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-5.png)
+
+Definir ID de lançamento e Frequência, depois clicar em "Criar"
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-6.png)
+
+Ainda em "Versões e Programação", Descendo a barra de rolamento, na parte de Configurações de fluxo de trabalho, clicar em "Criar"
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-7.png)
+
+Definir: ID de configuração, Configuração de versão (a mesma criada anteriormente), Conta de serviço, Frequência e em "Selection of Tags", selecionar as Tags a serem executadas, depois disso, "Criar"
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-8.png)
+
+<br>
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-9.png)
+
+Para executar, procurar o fluxo de trabalho criado, ir em "ações", depois em "Executar agora"
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-10.png)
+
+Na aba "Workflow Execution Logs", é possível ver o histórico de fluxos de trabalho
+
+![alt text](/Demandas/Relatorios_Julio/Img/image-11.png)
+
+*Importante*
+<br>
+Após Terminar de realizar os fluxos, é importante pausá-los para não gerar custos adicionais
