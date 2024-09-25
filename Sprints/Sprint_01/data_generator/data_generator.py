@@ -8,6 +8,7 @@ from google.api_core.exceptions import NotFound
 project_id = 'sapient-cycling-434419-u0'
 dataset_name = 'data_mock'
 table_id = f"{project_id}.{dataset_name}.persons"
+num_rows = 100
 
 client = bigquery.Client(project=project_id)
 
@@ -26,58 +27,11 @@ try:
     # Verifica se a tabela já existe
     client.get_table(table_id)
     print(f"Tabela {table_id} já existe.")
-    exit()
 except NotFound:
     # Cria a tabela se ela não existir
     table = bigquery.Table(table_id, schema=schema)
     table = client.create_table(table)
     print(f"Tabela {table_id} criada com sucesso.")
-
-"""
-[{
-  "id_cartao": "45595555",
-  "id_produto_cartao": null,
-  "num_cartao": "6505XXXXXXXX9955",
-  "num_seq_via_cartao": "1",
-  "id_conta": "26511437",
-  "num_cpf_cliente": "45678912345",
-  "cod_tip_portador": "1",
-  "num_bin": "650567",
-  "cod_loja_emis_cartao": null,
-  "id_cliente_so": "12349531",
-  "dth_emis_cartao": "2024-08-11 07:36:38.000000 UTC",
-  "dth_embs_cartao": "2024-08-12 05:00:00.000000 UTC",
-  "dth_valid_cartao": "2032-08-31 00:00:00.000000 UTC",
-  "dth_desbloqueio": null,
-  "cod_sit_cartao": "2",
-  "des_sit_cartao": "BLOQUEADO",
-  "dth_sit_cartao": "2024-08-11 07:37:00.000000 UTC",
-  "cod_estagio_cartao": "4",
-  "des_estagio_cartao": "ENCAMINHADO",
-  "dth_estagio_cartao": "2024-08-12 05:00:00.000000 UTC",
-  "flg_embs_loja": "N",
-  "flg_cartao_cancelado": "N",
-  "flg_cartao_provisorio": "N",
-  "flg_conta_cancelada": null,
-  "dth_ult_atu_so": "2024-08-12 05:00:20.000000 UTC",
-  "num_seq_ult_alteracao": "62",
-  "dth_inclusao_reg": "2024-08-15 04:18:47.000000 UTC",
-  "pt_nomeplastico": "SAMUEL NUNES",
-  "ca_arquivolote": "CPEM120824",
-  "ca_id_imagem": null,
-  "bc_responsavel": "[IRIS]_1056",
-  "ca_codigocancelamento": null,
-  "ca_flaggeracartasenha": "0",
-  "pt_id_imagem": null
-}]
-"""
-
-# Cria a tabela com o esquema definido
-table = bigquery.Table(table_id, schema=schema)
-
-table = client.create_table(table)
-
-print(f"Tabela {table_id} criada com sucesso.")
 
 fake = Faker(['pt_BR'])
 
@@ -104,7 +58,7 @@ def generate_account():
     person = random.sample(persons, 1)[0]
 
     account = FictionalAccount(
-        account_id=fake.unique.random_int(min=1, max=2002, step=1),
+        account_id=fake.unique.random_int(min=1, max=10000, step=1),
         status_id=fake.random_int(min=0, max=10),
         due_day=fake.random_int(min=1, max=30),
         person_id= 0,
@@ -143,3 +97,23 @@ for _ in range(10):
     card = random.sample(cards, 1)[0]
     print(card.model_dump_json())
 
+
+# Função que insere dados falsos na tabela
+def insert_fake_data(dataset_id, table_id, num_rows):
+    # Gera os dados
+    # Generate the data
+  rows_to_insert = [generate_person().model_dump() for _ in range(num_rows)]
+
+  # Convert birth_date to a string before serialization
+  for row in rows_to_insert:
+    row['birth_date'] = row['birth_date'].strftime('%Y-%m-%d')  
+    
+    # Insere os dados no BigQuery
+  errors = client.insert_rows_json(table_id, rows_to_insert)  # API request
+    
+  if errors == []:
+    print(f"Dados inseridos com sucesso na tabela {table_id}.")
+  else:
+    print(f"Erros ao inserir dados: {errors}")
+
+insert_fake_data(dataset_name, table_id, num_rows)
