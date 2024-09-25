@@ -55,7 +55,15 @@ sudo snap install google-cloud-cli --classic
 No Windows:
 Baixe e instale a Google Cloud CLI [aqui](https://cloud.google.com/sdk/docs/install?hl=pt_br&_gl=1*hqmbvj*_up*MQ..&gclid=Cj0KCQjwo8S3BhDeARIsAFRmkOOgrCgnl9O-8Xvb8r41OvcYyrZeWzpr-tLnO8mhQMm0cx8lWGYHrwkaAhmnEALw_wcB&gclsrc=aw.ds).
 
-1. abrir o terminal do google cloud sdk
+![gcloud cli](./images/gcloud-cli.jpg)
+
+- Quando executar só clicar em  next. 
+
+
+1. abrir o terminal do powershel e verificar se foi instalado corretamente 
+```
+gcloud --version
+```
 
 2. Navegar até a pasta onde você clonou o projeto 
 - exemplo: cd /home/seu-usuário/Halo-World/Sprints/Sprint_01/data_generator.py 
@@ -73,7 +81,7 @@ python -m venv .venv
 
 6. Dentro do ambiente virtual instalar as dependências do projeto:
 ```
-python install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## 4. Autenticar no Google Cloud
@@ -85,7 +93,7 @@ gcloud auth login
 
 Siga as instruções exibidas no navegador para completar o login.
 
-## 6. Autenticar as credenciais padrão do aplicativo
+## 5. Autenticar as credenciais padrão do aplicativo
 Se for necessário configurar as credenciais padrão do Google Cloud para sua aplicação, execute o comando abaixo:
 
 ```
@@ -94,7 +102,7 @@ gcloud auth application-default login
 
 Siga as instruções para completar o login.
 
-## 7. Executar o script
+## 6. Executar o script
 Finalmente, execute o script data_generator.py:
 
 ```
