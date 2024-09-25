@@ -64,6 +64,7 @@ Baixe e instale a Google Cloud CLI [aqui](https://cloud.google.com/sdk/docs/inst
 ```
 gcloud --version
 ```
+![terminal](./images/terminal.jpeg)
 
 2. Navegar até a pasta onde você clonou o projeto 
 - exemplo: cd /home/seu-usuário/Halo-World/Sprints/Sprint_01/data_generator.py 
