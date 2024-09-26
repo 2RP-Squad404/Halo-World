@@ -142,3 +142,10 @@ Na aba "Workflow Execution Logs", é possível ver o histórico de fluxos de tra
 *Importante*
 <br>
 Após Terminar de realizar os fluxos, é importante pausá-los para não gerar custos adicionais
+<br>
+
+**Links Documentação**
+
+https://cloud.google.com/dataform/docs/quickstart-create-workflow?hl=pt-br
+
+https://cloud.google.com/dataform/docs/quickstart-schedule-production-executions?hl=pt-br
