@@ -6,7 +6,7 @@ Existem alguns tipos diferentes de slots:
 
 **BASELINE SLOTS**: Número mínimo de slots que sempre serão alocados à reserva, e você sempre vai ser cobrado por eles 24/7.
 
-- **Podem ser encobridos por um commitment**. Por exemplo: se na minha reserva tenho 100 baseline slots rodando e simultaneamente tenho um commitment de 100 slots, o peço do commitment encobrirá o preço dos baseline slots
+- **Podem ser encobridos por um commitment**. Por exemplo: se na minha reserva tenho 100 baseline slots rodando e simultaneamente tenho um commitment de 100 slots, o preço do commitment encobrirá o preço dos baseline slots
 
 **AUTOSCALING SLOTS**: Slots que somente serão alocados depois que todos os baseline slots tiverem sido consumidos. Você paga por esses slots conforme usa.
 
@@ -169,3 +169,63 @@ Porém, como o job continua utilizando menos de 100 slots, a cobrança acaba sen
 ![capacityex1](./img/capacityex1.png)
 
 Dessa forma, nesse caso, **comprar slots é duas vezes mais eficiente do que utilizar o modelo sob-demanda.**
+
+# Comprando slots via linha de comando (gcloud Google Cloud SDK)
+## 1. Criar uma Reserva de Slots
+
+### Pré-requisitos
+- Google Cloud SDK instalado: ter o Google Cloud SDK instalado e configurado no seu ambiente.
+- Permissões adequadas: Geralmente, as funções BigQuery Admin ou BigQuery Reservation Admin são necessárias.
+- Projeto e região definidos: ID do seu projeto e a região onde deseja criar a reserva.
+
+### Comando:
+
+```
+gcloud beta bigquery reservations create minha_reserva \
+  --project=meu-projeto-id \
+  --slots=500 \
+  --region=us-central1
+  ```
+
+Detalhamento do Comando:
+
+- **gcloud beta bigquery reservations create**: Comando para criar uma nova reserva de slots.
+- **minha_reserva**: Nome da reserva que você está criando.
+- **--project=meu-projeto-id**: ID do seu projeto no Google Cloud.
+- **--slots=500**: Número de slots que deseja reservar.
+- **--region=us-central1**: Região onde a reserva será criada.
+
+## 2. Atribuir Slots a um Projeto
+Após criar uma reserva de slots, você pode atribuí-la a um projeto específico para que ele utilize os slots reservados.
+
+Comando: 
+
+```
+gcloud beta bigquery reservations assignments create \
+  --reservation=minha_reserva \
+  --assignee=meu-projeto-id \
+  --project=meu-projeto-id \
+  --location=us-central1
+```
+
+Detalhamento do Comando:
+
+- **gcloud beta bigquery reservations assignments create**: Comando para criar uma nova atribuição de slots.
+- **--reservation=minha_reserva**: Nome da reserva que está sendo atribuída.
+- **--assignee=meu-projeto-id**: ID do projeto que irá utilizar os slots reservados.
+- **--project=meu-projeto-id**: ID do projeto onde a reserva está localizada.
+- **--location=us-central1**: Região da reserva.
+
+## Verificando Reservas e Atribuições
+
+Listar Reservas:
+
+```
+gcloud beta bigquery reservations list --project=meu-projeto-id --region=us-central1
+```
+
+Listar Atribuições:
+
+```
+gcloud beta bigquery reservations assignments list --project=meu-projeto-id --region=us-central1
+```
