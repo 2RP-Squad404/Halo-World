@@ -1,11 +1,9 @@
 # Halo-World
-[Relatório Júlio](./Demandas/Relatorios_Julio/Relatorios.md)
+[Relatório Júlio](./Demandas/Relatorios_Julio/Relatorio2.md)
 
-[Relatório Letícia](./Demandas/Relatorios_Leticia/Relatorios.md)
+[Relatório Gabriel Faria/Letícia](./Demandas/Relatorios_GabrielFaria/Relatorio2.md)
 
-[Relatório Gabriel Faria](./Demandas/Relatorios_GabrielFaria/Relatorios.md)
-
-[Relatório Valentina](./Demandas/Relatorios_Valentina/Relatorios.md)
+[Relatório Valentina](./Demandas/Relatorios_Valentina/Relatorio_2.md)
 
 [Relatório Rafael](./Demandas/Relatorios_RafaelRodrigues/Relatorios.md)
 
