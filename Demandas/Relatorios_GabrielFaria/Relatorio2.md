@@ -170,6 +170,10 @@ Porém, como o job continua utilizando menos de 100 slots, a cobrança acaba sen
 
 Dessa forma, nesse caso, **comprar slots é duas vezes mais eficiente do que utilizar o modelo sob-demanda.**
 
+## Resultados
+
+![result](./img/result.png)
+
 # Comprando slots via linha de comando (gcloud Google Cloud SDK)
 ## 1. Criar uma Reserva de Slots
 
