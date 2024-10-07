@@ -1,12 +1,9 @@
 # Halo-World
-[Relatório Júlio](./Demandas/Relatorios_Julio/Relatorio2.md)
 
-[Relatório Gabriel Faria/Letícia](./Demandas/Relatorios_GabrielFaria/Relatorio2.md)
+Tarefas voltadas à governança do BigQuery!
 
-[Relatório Valentina](./Demandas/Relatorios_Valentina/Relatorio_2.md)
+[Sprint 1](./Sprints/SP00-1609/)
 
-[Relatório Rafael](./Demandas/Relatorios_RafaelRodrigues/Relatorios.md)
+___
 
-[Relatório Daniel](./Demandas/Relatorios_Daniel/Relatorios.md)
-
-[Relatório Vincenzo](./Demandas/Relatorios_Vincenzo/Relatorios.md)
+[Sprint 2](./Sprints/SP01-3009/)
