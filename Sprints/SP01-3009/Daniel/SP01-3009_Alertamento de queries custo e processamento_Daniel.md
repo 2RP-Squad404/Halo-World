@@ -19,10 +19,10 @@ Isso nos permite que empresas monitorem e gerenciem os gastos com serviços na n
 
 ## Criação Das Politicas De Alerta Bytes Escaneados Por Consulta
 
-![alt text](<Imagens/Politicas Alertamento.png>)
+![alt text](<img/Politicas Alertamento.png>)
 
-![alt text](<Imagens/Alerta De Bytes Escaneados.png>)
+![alt text](<img/Alerta De Bytes Escaneados.png>)
 
-![alt text](<Imagens/Grafico Detalhes Byte.png>)
+![alt text](<img/Grafico Detalhes Byte.png>)
 
-![alt text](<Imagens/Alerta 2.png>)
+![alt text](<img/Alerta 2.png>)

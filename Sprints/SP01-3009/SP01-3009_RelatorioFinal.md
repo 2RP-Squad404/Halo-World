@@ -158,3 +158,23 @@ Enquanto a estrutura de Organização no GCP não está disponível, é inviáve
 2. **Criação de Políticas de IAM Personalizadas**:
    - Criação de políticas personalizadas de IAM que neguem explicitamente a criação de tabelas que não tenham particionamento e clustering configurados.
 
+## Políticas De Alertamento
+
+- As políticas de alerta de "Bytes Escaneados por Consulta" no Google Cloud são mecanismos que ajudam a monitorar e gerenciar o uso de recursos de consulta no BigQuery. Elas permitem que administradores definam limites personalizados de bytes escaneados para consultas individuais, ajudando a controlar custos e garantir eficiência. Quando uma consulta ultrapassa o limite estabelecido, um alerta é disparado, permitindo ajustes em tempo real. A criação dessas políticas oferece maior visibilidade sobre o uso de dados, promovendo a otimização de desempenho e a prevenção de gastos excessivos com processamento de grandes volumes de dados.
+
+### Criação Das Politicas De Alerta Bytes Escaneados Por Consulta
+A criação de políticas de alerta para "Bytes Escaneados por Consulta" no Google Cloud é importante por várias razões:
+
+ - Controle de custos: Ajuda a evitar gastos inesperados, alertando quando consultas escaneiam grandes volumes de dados, o que pode gerar custos altos.
+- Otimização de desempenho: Força a revisão de consultas ineficientes, incentivando a melhoria de sua estrutura e uso de recursos.
+- Previsibilidade orçamentária: Com alertas em vigor, equipes podem prever e gerenciar melhor o orçamento destinado a análises e processamento de dados.
+- Governança e compliance: Ajuda a garantir que as práticas de uso de dados estejam em conformidade com políticas internas e regulamentações externas.
+
+## Criação Da Politica De Alerta Por Custo
+ ![alt text](<Daniel/img/Politicas Alertamento.png>)
+
+ ![alt text](<Daniel/img/Alerta De Bytes Escaneados.png>)
+
+ ![alt text](<Daniel/img/Grafico Detalhes Byte.png>)
+
+ ![alt text](<Daniel/img/Alerta 2.png>)
