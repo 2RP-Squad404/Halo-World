@@ -178,3 +178,34 @@ A criação de políticas de alerta para "Bytes Escaneados por Consulta" no Goog
  ![alt text](<Daniel/img/Grafico Detalhes Byte.png>)
 
  ![alt text](<Daniel/img/Alerta 2.png>)
+
+
+ # Monitoramento de Métricas no Google Cloud Platform
+
+O Stackdriver Monitoring permite monitorar métricas dos projetos no Google Cloud Platform (GCP), possibilitando uma análise do desempenho e da utilização de recursos. A seguir, apresentamos um guia resumido para configurar esse monitoramento:
+
+### Procedimento para Configuração
+
+1. **Acessar o Monitoring**
+   - No **Google Cloud Console**, vá até a seção **Monitoring**.
+
+2. **Criar ou Selecionar um Dashboard**
+   - Em **Dashboards**, crie um novo ou edite um já existente, conforme necessário.
+
+3. **Adicionar um Gráfico**
+   - Clique em **Add Chart** para adicionar um gráfico. Escolha um tipo apropriado, como **Time Series Line Chart**.
+
+4. **Configurar as Métricas**
+   - Selecione métricas como **Bytes Faturados**, **Bytes Armazenados** ou **Linhas Carregadas** para monitorar o uso de recursos e custos.
+
+5. **Personalizar o Gráfico**
+   - Ajuste cores, legendas e intervalos de tempo para melhorar a visualização dos dados.
+
+6. **Definir Alertas**
+   - Em **Alerting**, crie políticas para notificar automaticamente quando limites críticos forem alcançados, configurando notificações por **e-mail**, **SMS** ou **Webhook**.
+
+![Exemplo de Gráfico](Vincenzo/img/Screenshot%20from%202024-09-26%2018-57-04.png)
+
+![Gráficos de Logs](Vincenzo/img/Screenshot%20from%202024-09-26%2018-57-22.png)
+
+![Alertas Configurados](Vincenzo/img/Screenshot%20from%202024-09-26%2017-34-25.png)
