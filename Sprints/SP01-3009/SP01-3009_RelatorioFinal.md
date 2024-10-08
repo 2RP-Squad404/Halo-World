@@ -102,3 +102,59 @@ Rastreamento: Tags ajudam a identificar e rastrear facilmente etapas e tabelas d
 Governança de dados: Classificar processos por importância, sensibilidade ou compliance, garantindo conformidade com regulamentações.
 Custo e performance: Atribuir tags de custo a processos para otimizar o uso de recursos e monitorar gastos.
 Automação: Facilitar a automação de processos baseados em tags, como acionamento de alertas ou relatórios.
+
+
+# **Particionamento e Clustering no BigQuery**
+
+**Particionamento** divide a tabela em segmentos menores (por data, número ou tempo de processamento), acelerando consultas e facilitando o gerenciamento.  
+**Clustering** organiza os dados em colunas especificadas, melhorando a eficiência das consultas. A combinação de ambos otimiza o desempenho e reduz custos.
+
+## Passo a Passo no BigQuery
+
+1. **Criar Dataset e Tabela**:  
+   Crie um dataset e faça upload do arquivo de dados (ex.: "Purchases_2023"). No esquema, use "Detectar automaticamente".
+
+2. **Configurar Particionamento**:  
+   Escolha particionamento por data ou tempo de processamento (`_PARTITIONTIME`) e exija a cláusula `WHERE` para filtrar dados e melhorar desempenho.
+
+3. **Configurar Clustering**:  
+   Selecione uma coluna (ex.: `purchase_datetime`) para organizar e otimizar as consultas.
+
+4. **Verificar Configuração**:  
+   Veja os "Detalhes" da tabela para confirmar o particionamento e clustering.
+
+5. **Testar Consulta**:  
+   Execute consultas com particionamento e clustering:
+   ```sql
+   SELECT purchase_datetime
+   FROM `test_clustering.clustering_test`
+   WHERE _PARTITIONTIME > TIMESTAMP_SUB(TIMESTAMP('2023-08-02'), INTERVAL 10 DAY)
+
+
+## Obrigatoriedade de Particionamento e Cluster
+
+### Contexto
+
+O objetivo da task era implementar uma obrigatoriedade de particionamento e clustering nas tabelas no BigQuery, garantindo que todas as novas tabelas criadas seguissem essas práticas recomendadas para otimização de performance e custos.
+
+### Limitações Encontradas
+
+Após análise das ferramentas disponíveis no GCP, especificamente no IAM (Identity and Access Management), identifiquei que:
+
+- O método de controle de acesso por IAM permite criar políticas personalizadas, mas não há uma forma direta de negar a criação de tabelas sem particionamento e clustering sem a criação de **políticas personalizadas específicas**.
+- Essas políticas personalizadas requerem que a organização tenha uma estrutura de **políticas de governança centralizadas**, o que só é possível quando o projeto está vinculado a uma **Organização** no GCP.
+- **Atualmente, nosso projeto não está associado a uma Organização no GCP**, o que inviabiliza a aplicação das políticas personalizadas neste momento.
+
+### Solução Proposta
+
+Enquanto a estrutura de Organização no GCP não está disponível, é inviável a criação de uma política que impeça a criação de tabelas sem particionamento e clustering. No entanto, abaixo está o passo a passo de como o processo será feito assim que tivermos a Organização configurada.
+
+#### Passo a Passo Futuro
+
+1. **Configuração das Permissões de IAM**:
+   - Atribuir permissões específicas aos administradores e usuários com base em papéis predefinidos e personalizados.
+   - Garantir que apenas usuários com permissões apropriadas possam criar tabelas sem particionamento ou clustering (caso seja absolutamente necessário).
+
+2. **Criação de Políticas de IAM Personalizadas**:
+   - Criação de políticas personalizadas de IAM que neguem explicitamente a criação de tabelas que não tenham particionamento e clustering configurados.
+
