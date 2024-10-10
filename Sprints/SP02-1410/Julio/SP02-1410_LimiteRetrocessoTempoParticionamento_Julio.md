@@ -20,3 +20,17 @@ Será criado uma função, dentro de Rotinas que não permite ao usuário execut
 
 Neste caso, ela deve retornar erro, pois o intervalo é maior que 2 meses.
 Para testar se irá validar períodos menores que 2 meses, basta trocar a data na query.
+
+---------------------------------------------------------------------------------------------------
+
+**Comparação de bytes processados e faturados entre uma tabela e uma view particionada com o limite**
+
+*Na tabela:*
+
+![alt text](/Sprints/SP02-1410/Julio/Img/BytesTabela.png)
+
+---------------------------------------------------------------------------------------------------
+
+*Na view:*
+
+![alt text](/Sprints/SP02-1410/Julio/Img/BytesView.png)
