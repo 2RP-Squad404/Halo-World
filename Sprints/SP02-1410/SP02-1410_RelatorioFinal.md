@@ -39,13 +39,12 @@ Outra maneira de limitar o usuário de realizar queries é criando uma VIEW dire
 
 ```
 -- Início da consulta que será utilizada pela view
-
 SELECT *  -- Seleciona todas as colunas da tabela
-FROM `sapient-cycling-434419-u0.test_cluestering.clustering_month_test`  -- Define a tabela específica de onde os dados serão extraídos
+FROM sapient-cycling-434419-u0.Purchases.teste_Purchases -- Define a tabela específica de onde os dados serão extraídos
 
--- Filtra as compras realizadas dentro de um intervalo de 60 dias (02 meses)
+-- Filtra as compras realizadas dentro de um intervalo de 60 dias
 WHERE TIMESTAMP_TRUNC(purchase_datetime, DAY)  -- Trunca a data de compra para considerar apenas a parte do dia (ignorando horas e minutos)
-  BETWEEN TIMESTAMP_SUB(TIMESTAMP("2023-10-13"),  -- Define o final do intervalo como 13 de outubro de 2023 
+  BETWEEN TIMESTAMP_SUB(TIMESTAMP("2023-10-13"),  -- Define o final do intervalo como 13 de outubro de 2023
   INTERVAL 60 DAY)  -- Subtrai 60 dias a partir de 13 de outubro de 2023 para definir o início do intervalo
   AND TIMESTAMP("2023-10-13")  -- Define o final do intervalo como exatamente o dia 13 de outubro de 2023
 
