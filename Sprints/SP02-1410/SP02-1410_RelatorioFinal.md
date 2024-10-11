@@ -31,11 +31,11 @@ Outra maneira de limitar o usuário de realizar queries é criando uma VIEW dire
 
 **1º passo**: Entrar no BigQuery e selecionar o DataForm para criar a view, clicar em novo arquivo, colocar o nome que desejar e criar o arquivo
 
-![criando_a_view](img/criacao_da_view.jpg)
+![criando_a_view](leticia/img/criacao_da_view.jpg)
 
 **2º passo**: configure sua view com o Tipo, Schema e Descrição. Após isso, colocar o código da consulta. 
 
-![view](img/view.jpg)
+![view](leticia/img/view.jpg)
 
 ```
 -- Início da consulta que será utilizada pela view
@@ -57,11 +57,11 @@ A partir desse código, será criado a view da minha tabela particionada com a l
 
 *Execute o seguinte script para testar a validação*
 
-[Execute esse script para teste](script/query.sql)
+[Execute esse script para teste](leticia/script/query.sql)
 
 Com o script acima trará o seguinte resultado:
 
-![resultado](img/resultado.jpg)
+![resultado](leticia/img/resultado.jpg)
 
 Com isso, podemos ver que a query foi bem sucedida trazendo os dados desde o dia 13/10 até o dia 14/08 (total de 02 meses).
 
