@@ -1,0 +1,1 @@
+SELECT * FROM `sapient-cycling-434419-u0.test_cluestering.v_limite_retrocesso`
