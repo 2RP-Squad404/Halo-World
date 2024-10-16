@@ -39,3 +39,37 @@ A consulta custou, dessa vez, apenas 10MB que, quando em comparação com a outr
 A consulta utilizou em média 1,028 slots, apresentando uma redução de 52X quando em comparação com a consulta anterior
 
     53,549 / 1,028 = 52,09
+
+O custo pode ser ainda mais reduzido combinando clusterização com o particionamento de tabelas:
+
+```
+CREATE TABLE partition_cluster
+PARTITION BY TIMESTAMP(campo_data)
+CLUSTER BY campo1_campo2
+AS SELECT * FROM tabela
+```
+
+# Forçando o particionamento e clusterização na criação de tabelas
+Não existe um jeito direto de impedir a obrigatoriedade de particionamento e clustering em uma tabela no BQ, porém há uma forma de fazer via Clud Functions:
+
+Primeiramente cria-se um tópico Pub/Sub que recebe os logs de criação de tabela e envia para a função que será criada posteriormente:
+
+![pubsub](./img/pubsub.png)
+
+Segundamente cria-se um coletor de logs, captando apenas os jobs de criação de tabelas / inserção de dados nas tabelas:
+
+![logrouter](./img/logrouter.png)
+
+![logcollector](./img/logcollector.png)
+
+O destino dos logs coletados é o tópico Pub/Sub criado previamente.
+
+Os logs são, portanto, enviados ao cloud-run, onde um script python é executado, recebendo o payload do log e determinando se a tabela criada é particionada ou não. Caso não haja particionamento e clustering, deleta a tabela e envia um erro no log: 
+
+![function](./img/function.png)
+
+**Método alternativo**:
+
+Na criação de uma função Cloud Run, determina-se que os logs de criação de tabelas / inserção de dados em tabelas serão automaticamente enviados para que a função seja executada:
+
+![gatilhoBQ](./img/gatilhoBQ.png)
