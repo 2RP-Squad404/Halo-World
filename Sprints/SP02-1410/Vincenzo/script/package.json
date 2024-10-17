@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+      "@google-cloud/functions-framework": "^3.0.0",
+      "nodemailer": "^6.7.2"
+    }
+  }
