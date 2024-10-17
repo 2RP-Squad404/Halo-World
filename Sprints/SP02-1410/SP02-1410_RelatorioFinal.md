@@ -122,3 +122,18 @@ Na criação de uma função Cloud Run, determina-se que os logs de criação de
 Os logs são, portanto, enviados ao cloud-run, onde um script python é executado, recebendo o payload do log e determinando se a tabela criada é particionada ou não. Caso não haja particionamento e clustering, deleta a tabela e envia um erro no log: 
 
 ![function](./Gabriel/img/function.png)
+
+# Criação de Políticas de acesso as linhas
+
+Aqui, criamos políticas de acesso as linhas da tabela particionada, com o objetivo de garantir acesso
+de pessoas ou grupos especifícios conforme uma condição, um exemplo:
+
+![alt text](/Sprints/SP02-1410/Julio/Img/Criacao_Politica_Acesso.png)
+
+Nesse caso, apenas de exemplo, foi criado uma política de acesso que garante acesso a usuários com aquele domínio.
+
+Se o usuário não tiver acesso, aparecerá a seguinte mensagem:
+
+![alt text](/Sprints/SP02-1410/Julio/Img/Msg_Erro_Acesso.png)
+
+
