@@ -10,7 +10,7 @@ A solução envolve os seguintes componentes:
 3. **Tópico Pub/Sub**: Os logs são enviados para um tópico específico do Pub/Sub que serve como canal de mensagens.
 4. **Cloud Function**: Uma Cloud Function processa as mensagens do Pub/Sub, as decodifica, verifica condições (por exemplo, bytes processados) e envia um e-mail de alerta via Gmail usando Nodemailer.
 
-![Visão Geral do Sistemas](./img/Screenshot%20from%202024-10-17%2015-04-23.png)
+![Visão Geral do Sistemas](./img/logCloudFunction.png)
 
 ## Componentes
 
@@ -19,15 +19,14 @@ A solução envolve os seguintes componentes:
 - **Critérios de Filtro**: O filtro garante que apenas os logs relacionados à conclusão de trabalhos no BigQuery sejam encaminhados.
 - **Destino**: Os logs são enviados para o tópico do Pub/Sub `bigquery-job-alert-16-oct`.
 
-![Sink de Cloud Logging](./img/Screenshot%20from%202024-10-17%2015-07-35.png)
-![Sink de Cloud Logging](./img/Screenshot%20from%202024-10-17%2015-07-16.png)
+![Sink de Cloud Logging](./img/sinkDetails.png)
 
 ### 2. Tópico Pub/Sub
 - O **tópico Pub/Sub** `bigquery-job-alert-16-oct` atua como intermediário, recebendo mensagens do sink e entregando-as para a Cloud Function.
 - **Assinatura**: Uma assinatura chamada `bigquery-job-alert-16-oct-sub` é usada para que a Cloud Function puxe mensagens do tópico.
 - **Métricas**: Há gráficos disponíveis para monitorar o número de mensagens não reconhecidas e a idade das mensagens.
 
-![Métricas do Pub/Sub](./img/Screenshot%20from%202024-10-17%2015-06-15.png)
+![Métricas do Pub/Sub](./img/metricsPubsub.png)
 
 ### 3. Cloud Function
 - A **Cloud Function** chamada `BigQueryHandlerAlert` é implantada com a seguinte funcionalidade:
@@ -35,8 +34,7 @@ A solução envolve os seguintes componentes:
   - **Verificação de Condições**: Verifica se o total de bytes processados de um trabalho do BigQuery excede um limite especificado (por exemplo, 1TB).
   - **Alertas por E-mail**: Usa Nodemailer para enviar notificações por e-mail quando as condições são acionadas. O Gmail é usado como serviço de e-mail, exigindo uma senha de aplicativo.
 
-![Cloud Function](./img/Screenshot%20from%202024-10-17%2015-04-23.png)
-![Cloud Function](./img/Screenshot%20from%202024-10-17%2015-03-58.png)
+![Cloud Function](./img/logCloudFunction.png)
 
 ### 4. Configuração do Nodemailer
 - **Serviço**: A Cloud Function está configurada para usar o Gmail como serviço de e-mail.
@@ -102,17 +100,8 @@ exports.bigQueryAlertHandler = (message, context) => {
 - Vários alertas por e-mail foram enviados com sucesso, mas algumas tentativas parecem encontrar problemas ao enviar.
 - É importante garantir que as permissões do Pub/Sub estejam configuradas corretamente para que a Cloud Function possa ler as mensagens recebidas.
 
-![Logs](./img/Screenshot%20from%202024-10-17%2015-04-23.png)
+![Logs](./img/script.png)
 
 ## Configuração de Permissões e IAM
 - **Permissões da Conta de Serviço**: Certifique-se de que a conta de serviço do Pub/Sub tenha permissão `pubsub.publisher` para encaminhar mensagens e que a conta de serviço da Cloud Function tenha permissão `pubsub.subscriber` para lê-las.
 - **Ajustes no IAM**: A função pode precisar de ajustes no IAM para resolver problemas de permissão relacionados à integração.
-
-## Melhoria Futura
-1. **Análise de Mensagens**: Melhorar o tratamento de erros para resolver problemas de análise de JSON, garantindo robustez ao lidar com vários formatos de payload.
-2. **Segurança da Autenticação**: Substituir credenciais codificadas por armazenamento seguro, como o Google Secret Manager, para evitar exposição.
-3. **Tratamento de Erros**: Adicionar tentativas de reenvio ou tratamento de erros mais abrangente para o processo de envio de e-mails.
-4. **Monitoramento**: Usar o Google Cloud Monitoring para configurar dashboards e alertas para melhor visibilidade das métricas do Pub/Sub e da Cloud Function.
-
-![Configuração do Sink](./img/Screenshot%20from%202024-10-17%2015-07-35.png)
-
