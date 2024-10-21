@@ -1,5 +1,61 @@
-# Limite de retrocesso de tempo de particionamento por consulta
+# Clusterização
+Culsterizar uma tabela siginifica **ordenar uma tabela de acordo com determinadas colunas**. Até 4 colunas podem ser denominadas para a clusterização.
 
+![clusteredtables](./Gabriel/img/clusteredtables.png)
+
+## Exemplo de otimização de custos com clustering
+Realizamos - com o fito de exemplificar - a mesma consulta na mesma tabela de 36GB de dados quando está não-clusterizada e quando está clusterizada:
+
+### Consulta na tabela não-clusterizada:
+![noncluster](./Gabriel/img/noncluster.png)
+
+A consulta custou 4,68GB de dados e consumiu a média de 53,549 slots
+
+### Consulta na tabela clusterizada
+
+![cluster](./Gabriel/img/cluster.png)
+
+A consulta custou, dessa vez, apenas 10MB que, quando em comparação com a outra consulta, apresentou 468x menos custos
+
+    4,68GB / 0,01GB = 468
+
+A consulta utilizou em média 1,028 slots, apresentando uma redução de 52X quando em comparação com a consulta anterior
+
+    53,549 / 1,028 = 52,09
+
+O custo pode ser ainda mais reduzido combinando clusterização com o particionamento de tabelas:
+
+```sql
+CREATE TABLE partition_cluster
+PARTITION BY TIMESTAMP(campo_data)
+CLUSTER BY campo1_campo2
+AS SELECT * FROM tabela
+```
+
+# Forçando o particionamento e clusterização na criação de tabelas
+Não existe um jeito direto de impedir a obrigatoriedade de particionamento e clustering em uma tabela no BQ, porém há uma forma de fazer via Clud Functions:
+
+Na criação de uma função Cloud Run, determina-se que os logs de criação de tabelas / inserção de dados em tabelas serão automaticamente enviados para que a função seja executada:
+
+![gatilhoBQ](./Gabriel/img/gatilhoBQ.png)
+
+Os logs são, portanto, enviados ao cloud-run, onde um script python é executado, recebendo o payload do log e determinando se a tabela criada é particionada ou não. Caso não haja particionamento e clustering, deleta a tabela e envia um erro no log: 
+
+![function](./Gabriel/img/function.png)
+
+# Criação de Políticas de acesso as linhas
+Aqui, criamos políticas de acesso as linhas da tabela particionada, com o objetivo de garantir acesso
+de pessoas ou grupos especifícios conforme uma condição, um exemplo:
+
+![alt text](/Sprints/SP02-1410/Julio/Img/Criacao_Politica_Acesso.png)
+
+Nesse caso, apenas de exemplo, foi criado uma política de acesso que garante acesso a usuários com aquele domínio.
+
+Se o usuário não tiver acesso, aparecerá a seguinte mensagem:
+
+![alt text](/Sprints/SP02-1410/Julio/Img/Msg_Erro_Acesso.png)
+
+# Limite de retrocesso de tempo de particionamento por consulta
 Uma das maneiras de limitar o usuário de realizar determinadas queries é criando uma função UDF (User Defined Function) no BigQuery, vou mostrar como fiz:
 
 *1º passo: Encontrar a tabela particionada no BigQuery e criar uma consulta em nova guia*
@@ -12,20 +68,7 @@ Uma das maneiras de limitar o usuário de realizar determinadas queries é crian
 
 Será criado uma função, dentro de Rotinas que não permite ao usuário executar uma query que englobe um período maior que 2 meses
 
----------------------------------------------------------------------------------------------------
-
-*Testando na prática*
-
-![alt text](/Sprints/SP02-1410/Julio/Img/printErroQuery.png)
-
-Nesse caso retorna erro pois o intervalo de tempo é maior que 2 meses
-
-![alt text](/Sprints/SP02-1410/Julio/Img/PrintCertoQuery.png)
-
-Nesse caso a consulta é realizada com sucesso pois o intervalo é menor ou igual a 2 meses
-
----------------------------------------------------------------------------------------------------
-
+___
 
 Outra maneira de limitar o usuário de realizar queries é criando uma VIEW direto no DataForm do BigQuery.
 
@@ -37,7 +80,7 @@ Outra maneira de limitar o usuário de realizar queries é criando uma VIEW dire
 
 ![view](leticia/img/view.jpg)
 
-```
+```sql
 -- Início da consulta que será utilizada pela view
 SELECT *  -- Seleciona todas as colunas da tabela
 FROM sapient-cycling-434419-u0.Purchases.teste_Purchases -- Define a tabela específica de onde os dados serão extraídos
@@ -77,64 +120,6 @@ Com isso, podemos ver que a query foi bem sucedida trazendo os dados desde o dia
 *Na view:*
 
 ![alt text](/Sprints/SP02-1410/Julio/Img/BytesView.png)
-
-# Clusterização
-Culsterizar uma tabela siginifica **ordenar uma tabela de acordo com determinadas colunas**. Até 4 colunas podem ser denominadas para a clusterização.
-
-![clusteredtables](./Gabriel/img/clusteredtables.png)
-
-## Exemplo de otimização de custos com clustering
-Realizamos - com o fito de exemplificar - a mesma consulta na mesma tabela de 36GB de dados quando está não-clusterizada e quando está clusterizada:
-
-### Consulta na tabela não-clusterizada:
-![noncluster](./Gabriel/img/noncluster.png)
-
-A consulta custou 4,68GB de dados e consumiu a média de 53,549 slots
-
-### Consulta na tabela clusterizada
-
-![cluster](./Gabriel/img/cluster.png)
-
-A consulta custou, dessa vez, apenas 10MB que, quando em comparação com a outra consulta, apresentou 468x menos custos
-
-    4,68GB / 0,01GB = 468
-
-A consulta utilizou em média 1,028 slots, apresentando uma redução de 52X quando em comparação com a consulta anterior
-
-    53,549 / 1,028 = 52,09
-
-O custo pode ser ainda mais reduzido combinando clusterização com o particionamento de tabelas:
-
-```
-CREATE TABLE partition_cluster
-PARTITION BY TIMESTAMP(campo_data)
-CLUSTER BY campo1_campo2
-AS SELECT * FROM tabela
-```
-
-# Forçando o particionamento e clusterização na criação de tabelas
-Não existe um jeito direto de impedir a obrigatoriedade de particionamento e clustering em uma tabela no BQ, porém há uma forma de fazer via Clud Functions:
-
-Na criação de uma função Cloud Run, determina-se que os logs de criação de tabelas / inserção de dados em tabelas serão automaticamente enviados para que a função seja executada:
-
-![gatilhoBQ](./Gabriel/img/gatilhoBQ.png)
-
-Os logs são, portanto, enviados ao cloud-run, onde um script python é executado, recebendo o payload do log e determinando se a tabela criada é particionada ou não. Caso não haja particionamento e clustering, deleta a tabela e envia um erro no log: 
-
-![function](./Gabriel/img/function.png)
-
-# Criação de Políticas de acesso as linhas
-
-Aqui, criamos políticas de acesso as linhas da tabela particionada, com o objetivo de garantir acesso
-de pessoas ou grupos especifícios conforme uma condição, um exemplo:
-
-![alt text](/Sprints/SP02-1410/Julio/Img/Criacao_Politica_Acesso.png)
-
-Nesse caso, apenas de exemplo, foi criado uma política de acesso que garante acesso a usuários com aquele domínio.
-
-Se o usuário não tiver acesso, aparecerá a seguinte mensagem:
-
-![alt text](/Sprints/SP02-1410/Julio/Img/Msg_Erro_Acesso.png)
 
 # Sistema de Alerta BigQuery para Pub/Sub
 
@@ -235,4 +220,3 @@ exports.bigQueryAlertHandler = (message, context) => {
 - Os logs indicam que há mensagens com erros de "JSON inválido", sugerindo problemas no formato da mensagem ou estruturas de dados inesperadas no payload do Pub/Sub.
 - Vários alertas por e-mail foram enviados com sucesso, mas algumas tentativas parecem encontrar problemas ao enviar.
 - É importante garantir que as permissões do Pub/Sub estejam configuradas corretamente para que a Cloud Function possa ler as mensagens recebidas.
-
