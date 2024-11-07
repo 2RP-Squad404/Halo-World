@@ -31,7 +31,6 @@ sequenceDiagram
     
     Processo->>Logs: CALL `insert_processo_log` (nom_processo, nom_tabela, contagem de linhas e sucesso)
     note right of Logs: Registra o sucesso da execução com o status "EXECUÇÃO FINALIZADA COM SUCESSO".
-.
 
 
 ```
