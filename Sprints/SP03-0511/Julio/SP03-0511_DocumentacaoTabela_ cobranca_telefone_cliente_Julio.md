@@ -5,10 +5,14 @@ sequenceDiagram
     participant ClienteEmail as ClienteEmail Table
     participant Logs as Log de Processamento
 
-    Processo->>BigQuery: DECLARE variáveis (nom_processo, nom_tabela, etc.) Essas variáveis serão utilizadas ao longo do fluxo para controle e execução do procedimento
-    Processo->>Logs: CALL `get_processo_log` com parâmetros iniciais. O processo principal chama a função get_processo_log, que recupera os registros de processamento anteriores, incluindo a última data processada (dth_ult_data_processada) e a hora de início da execução (dth_inicio_execucao). Essas informações são essenciais para controlar a execução incremental e assegurar que dados duplicados ou desatualizados não sejam carregados
-    Logs->>Processo: Retorna dados de log e define dth_ult_data_processada e dth_inicio_execucao. O processo consulta o BigQuery para contar quantas linhas já existem na tabela cobranca_telefone_cliente antes de iniciar as operações de carga. 
-    Processo->>BigQuery: SET before_rows_count a partir do row_count de 'cobranca_email_cliente'. Isso é feito utilizando a variável before_rows_count, que servirá para medir a diferença ao final do processo.
+    %% Essas variáveis serão utilizadas ao longo do fluxo para controle e execução do procedimento
+    Processo->>BigQuery: DECLARE variáveis (nom_processo, nom_tabela, etc.) 
+    %% O processo principal chama a função get_processo_log, que recupera os registros de processamento anteriores, incluindo a última data processada (dth_ult_data_processada) e a hora de início da execução (dth_inicio_execucao). Essas informações são essenciais para controlar a execução incremental e assegurar que dados duplicados ou desatualizados não sejam carregados
+    Processo->>Logs: CALL `get_processo_log` com parâmetros iniciais. 
+    %% O processo consulta o BigQuery para contar quantas linhas já existem na tabela cobranca_telefone_cliente antes de iniciar as operações de carga. 
+    Logs->>Processo: Retorna dados de log e define dth_ult_data_processada e dth_inicio_execucao.
+    %% Isso é feito utilizando a variável before_rows_count, que servirá para medir a diferença ao final do processo.
+    Processo->>BigQuery: SET before_rows_count a partir do row_count de 'cobranca_email_cliente'.
 
     Processo->>ClienteTel: Executa CTEs. tel_all - Obtém o ID dos clientes e a data de referência.tel_cel - Extrai os números de celular e o respectivo DDD para os clientes dentro do período de movimento. tel_res - Extrai os números de telefone residencial e o DDD. tel_com - Extrai os números de telefone comercial e o DDD.
     ClienteTel->>BigQuery: Query para telefones (celular, residencial, comercial). O processo extrai os dados de telefones de diferentes tipos (celular, residencial, comercial) da tabela de clientes, executando consultas no BigQuery
