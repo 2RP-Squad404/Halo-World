@@ -10,7 +10,7 @@ sequenceDiagram
     Logs->>Processo: Retorna dados de log e define dth_ult_data_processada e dth_inicio_execucao. O processo consulta o BigQuery para contar quantas linhas já existem na tabela cobranca_telefone_cliente antes de iniciar as operações de carga. 
     Processo->>BigQuery: SET before_rows_count a partir do row_count de 'cobranca_email_cliente'. Isso é feito utilizando a variável before_rows_count, que servirá para medir a diferença ao final do processo.
 
-    Processo->>ClienteTel: Executa CTEs: tel_all: Obtém o ID dos clientes e a data de referência.
+    Processo->>ClienteTel: Executa CTEs tel_all Obtém o ID dos clientes e a data de referência.
     tel_cel: Extrai os números de celular e o respectivo DDD para os clientes dentro do período de movimento.
     tel_res: Extrai os números de telefone residencial e o DDD.
     tel_com: Extrai os números de telefone comercial e o DDD.
