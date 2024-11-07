@@ -1,25 +1,41 @@
 ```mermaid
 sequenceDiagram
     participant Processo as Processo Principal
-    participant BigQuery as BigQuery
-    participant Acordo as Tabela Acordo
-    participant Parcela as Tabela Parcela
-    participant Cliente as Tabela Cliente
-    participant Logs as Log de Processamento
+    participant BigQuery as BigQuery (Serviço de Armazenamento)
+    participant Acordo as Tabela Acordo (Dados de Acordos)
+    participant Parcela as Tabela Parcela (Dados de Parcelas)
+    participant Cliente as Tabela Cliente (Dados de Clientes)
+    participant Logs as Log de Processamento (Registros de Execução)
 
-    Processo->>BigQuery: DECLARE variáveis (nom_processo, nom_tabela, etc.)
-    Processo->>Logs: CALL `get_processo_log` com parâmetros iniciais
-    Logs->>Processo: Retorna dados de log (dth_ult_data_processada, dth_inicio_execucao)
+    Processo->>BigQuery: DECLARE variáveis
+    note right of Processo: Declaração de variáveis necessárias para o processo
 
-    Processo->>BigQuery: SET before_rows_count para a tabela 'cobranca_endereco_cliente'
+    Processo->>Logs: CALL `get_processo_log`
+    note right of Logs: Recupera registros de logs iniciais para controle
 
-    Processo->>Acordo: Executa join com a tabela Parcela para unir acordos e parcelas
-    Processo->>Parcela: Realiza join com Cliente para adicionar dados do cliente
+    Logs->>Processo: Retorna dados de log
+    note right of Processo: Dados de log (última data processada e início de execução)
 
-    Processo->>BigQuery: Filtra os registros por dat_ini_movimento e dat_fim_movimento
+    Processo->>BigQuery: SET before_rows_count
+    note right of BigQuery: Define contagem de registros antes do processo
 
-    Processo->>BigQuery: SET after_rows_count após atualização
-    Processo->>BigQuery: Define atual_ult_data_processada com base na max(dat_referencia)
-    Processo->>Logs: CALL `insert_processo_log` com dados do processo e mensagem "EXECUÇÃO FINALIZADA COM SUCESSO"
+    Processo->>Acordo: JOIN com Parcela
+    note right of Acordo: Une dados de acordos e parcelas
+
+    Processo->>Parcela: JOIN com Cliente
+    note right of Parcela: Adiciona dados de clientes ao conjunto de dados
+
+    Processo->>BigQuery: Filtra registros por datas
+    note right of BigQuery: Aplica filtro `dat_ini_movimento` e `dat_fim_movimento`
+
+    Processo->>BigQuery: SET after_rows_count
+    note right of BigQuery: Define contagem de registros após o processo
+
+    Processo->>BigQuery: Atualiza `atual_ult_data_processada`
+    note right of BigQuery: Atualiza última data processada com `max(dat_referencia)`
+
+    Processo->>Logs: CALL `insert_processo_log`
+    note right of Logs: Registra mensagem de sucesso no log: "EXECUÇÃO FINALIZADA COM SUCESSO"
+
 
 ```
