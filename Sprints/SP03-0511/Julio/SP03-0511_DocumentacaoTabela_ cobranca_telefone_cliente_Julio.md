@@ -18,7 +18,7 @@ sequenceDiagram
     note right of BigQuery: O número de linhas antes da operação é armazenado na variável 'before_rows_count' para que a diferença de novas linhas seja calculada ao final da carga.
 
     Processo->>ClienteTel: Executa CTEs (tel_all, tel_cel, tel_res, tel_com)
-    note right of ClienteTel: Cada CTE realiza uma extração específica: 'tel_all' obtém os IDs e a data de referência dos clientes; 'tel_cel' extrai números de celulares; 'tel_res' extrai números residenciais; 'tel_com' extrai números comerciais. Tudo isso dentro do período definido pelas variáveis 'dat_ini_movimento' e 'dat_fim_movimento'.
+    note right of ClienteTel: Cada CTE realiza uma extração específica: 'tel_all' obtém os IDs e a data de referência dos clientes, 'tel_cel' extrai números de celulares, 'tel_res' extrai números residenciais, 'tel_com' extrai números comerciais. Tudo isso dentro do período definido pelas variáveis 'dat_ini_movimento' e 'dat_fim_movimento'.
 
     ClienteTel->>BigQuery: Query para telefones (celular, residencial, comercial)
     note right of BigQuery: As consultas extraem as informações de telefones (celular, residencial e comercial) da tabela de clientes, consolidando todos os dados dentro do intervalo de datas especificado.
