@@ -10,10 +10,7 @@ sequenceDiagram
     Logs->>Processo: Retorna dados de log e define dth_ult_data_processada e dth_inicio_execucao. O processo consulta o BigQuery para contar quantas linhas já existem na tabela cobranca_telefone_cliente antes de iniciar as operações de carga. 
     Processo->>BigQuery: SET before_rows_count a partir do row_count de 'cobranca_email_cliente'. Isso é feito utilizando a variável before_rows_count, que servirá para medir a diferença ao final do processo.
 
-    Processo->>ClienteTel: Executa CTEs tel_all Obtém o ID dos clientes e a data de referência.
-    tel_cel: Extrai os números de celular e o respectivo DDD para os clientes dentro do período de movimento.
-    tel_res: Extrai os números de telefone residencial e o DDD.
-    tel_com: Extrai os números de telefone comercial e o DDD.
+    Processo->>ClienteTel: Executa CTEs. tel_all - Obtém o ID dos clientes e a data de referência.tel_cel - Extrai os números de celular e o respectivo DDD para os clientes dentro do período de movimento. tel_res - Extrai os números de telefone residencial e o DDD. tel_com - Extrai os números de telefone comercial e o DDD.
     ClienteTel->>BigQuery: Query para telefones (celular, residencial, comercial). O processo extrai os dados de telefones de diferentes tipos (celular, residencial, comercial) da tabela de clientes, executando consultas no BigQuery
     Processo->>BigQuery: Realiza LEFT JOIN entre tel_all, tel_cel, tel_res, tel_com. O processo realiza um LEFT JOIN entre as tabelas de telefones (celular, residencial e comercial) com a tabela tel_all, que contém todos os IDs dos clientes. Isso permite consolidar todas as informações de telefone em um único registro por cliente, considerando cada tipo de telefone
 
