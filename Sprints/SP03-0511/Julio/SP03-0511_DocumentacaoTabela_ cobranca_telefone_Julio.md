@@ -32,7 +32,7 @@ sequenceDiagram
     Processo->>BigQuery: SET atual_ult_data_processada com o último `dat_modificacao` processado
     note right of BigQuery: A variável 'atual_ult_data_processada' é atualizada com o valor da última modificação para assegurar a continuidade da carga incremental.
 
-    Processo->>Logs: CALL `insert_processo_log` com detalhes de execução, contagem de linhas e mensagem de sucesso
+    Processo->>Logs: CALL `insert_processo_log` com detalhes de execução, contagem de linhas egit mensagem de sucesso
     note right of Logs: O log de processamento é atualizado com a contagem de linhas e o status da execução ("EXECUÇÃO FINALIZADA COM SUCESSO").
 
 
