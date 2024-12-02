@@ -1,0 +1,1 @@
+Há erro de tabela não encontrada
